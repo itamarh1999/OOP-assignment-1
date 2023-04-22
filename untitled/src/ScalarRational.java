@@ -67,12 +67,13 @@ public class ScalarRational implements Scalar {
 
     @Override
     public int sign() {
-        if ((this.numerator / this.denominator) > 0)
+        if (((this.numerator > 0 && this.denominator > 0) || (this.numerator < 0 && this.denominator < 0)))
             return 1;
-        else if ((this.numerator / this.denominator) < 0)
+        else if (((this.numerator > 0 && this.denominator < 0) || (this.numerator < 0 && this.denominator > 0)))
             return -1;
-        else
+        else if (this.numerator ==  0)
             return 0;
+        return 0;
     }
 
     public ScalarRational reduce(){
