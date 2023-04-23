@@ -96,7 +96,7 @@ public class Polynomial {
             if (m.sign() != 0)
                 ans = ans + m.toString() + " + ";
         }
-        return  ans.substring(0,ans.length()-1).replace("+ -","- ");
+        return  ans.substring(0,ans.length()-2).replace("+ -","- ").replace("1x","x");
     }
     public LinkedList<Monomial> getMonomials() {
         return monomials;
@@ -104,9 +104,18 @@ public class Polynomial {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Polynomial that = (Polynomial) o;
-        return monomials.equals(that.monomials);
-    }
+        if (o instanceof Polynomial) {
+            Polynomial that = (Polynomial) o;
+            if (that.monomials.size() == monomials.size()) {
+                boolean equals = true;
+                Iterator thisIt = monomials.iterator();
+                Iterator thatIt = that.monomials.iterator();
+                while (equals && thatIt.hasNext() && thisIt.hasNext()) {
+                    equals = thatIt.next().equals(thisIt.next());
+                }
+                return equals;
+            }
+        }
+        return false;
+        }
 }

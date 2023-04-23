@@ -73,10 +73,18 @@ public class ScalarInteger implements Scalar {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ScalarInteger that = (ScalarInteger) o;
-        return number == that.number;
+        if (o instanceof ScalarInteger) {
+            ScalarInteger that = (ScalarInteger) o;
+            return that.number == this.number;
+        }
+        else if (o instanceof ScalarRational){
+            ScalarRational that = (ScalarRational) o;
+            ScalarRational thatRed = that.reduce();
+            if (thatRed.getNumerator() % thatRed.getDenominator() == 0)
+                return ((thatRed.getNumerator() / thatRed.getDenominator()) == this.number);
+            return false;
+        }
+        return false;
     }
 
 

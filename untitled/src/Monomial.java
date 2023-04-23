@@ -47,9 +47,10 @@ public class Monomial {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Monomial monomial = (Monomial) o;
-        return exponent == monomial.exponent && coefficient.equals(monomial.coefficient);
+        if (o instanceof Monomial) {
+            Monomial monomial = (Monomial) o;
+            return exponent == monomial.exponent && coefficient.equals(monomial.coefficient);
+        }
+        return false;
     }
 }

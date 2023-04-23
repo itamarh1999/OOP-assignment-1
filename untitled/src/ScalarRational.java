@@ -109,10 +109,20 @@ public class ScalarRational implements Scalar {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ScalarRational that = (ScalarRational) o;
-        return numerator == that.numerator && denominator == that.denominator;
+        if (o instanceof ScalarRational) {
+            ScalarRational that = (ScalarRational) o;
+            ScalarRational thisRed = this.reduce();
+            ScalarRational thatRed = that.reduce();
+            return thatRed.numerator == thisRed.numerator && thatRed.denominator == thisRed.denominator;
+        }
+        else if (o instanceof ScalarInteger){
+            ScalarRational thisRed = this.reduce();
+            ScalarInteger that = (ScalarInteger) o;
+            if (thisRed.numerator % thisRed.denominator == 0)
+                return ((thisRed.numerator / thisRed.denominator) == that.getNumber());
+            return false;
+        }
+        return false;
     }
 
 }
