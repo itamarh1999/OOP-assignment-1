@@ -22,38 +22,45 @@ public class Calculator {
             Polynomial p1;
             Polynomial p2;
             switch (choice) {
-                case 1 -> {
+                case 1 : {
                     System.out.println("Please enter the first polynomial:");
                     p1 = Polynomial.build(readLine());
                     System.out.println("Please enter the second polynomial:");
                     p2 = Polynomial.build(readLine());
                     System.out.println("The result is:");
                     System.out.println(p1.add(p2));
+                    break;
                 }
-                case 2 -> {
+                case 2 : {
                     System.out.println("Please enter the first polynomial:");
                     p1 = Polynomial.build(readLine());
                     System.out.println("Please enter the second polynomial:");
                     p2 = Polynomial.build(readLine());
                     System.out.println("The result is:");
                     System.out.println(p1.mul(p2));
+                    break;
                 }
-                case 3 -> {
+                case 3 : {
                     System.out.println("Please enter the polynomial:");
                     p1 = Polynomial.build(readLine());
                     System.out.println("Please enter the value to evaluate at:");
                     int val = readInt();
                     System.out.println("The result is:");
                     System.out.println(p1.evaluate(new ScalarInteger(val)));
+                    break;
                 }
-                case 4 -> {
+                case 4 : {
                     System.out.println("Please enter the polynomial:");
                     p1 = Polynomial.build(readLine());
                     System.out.println("The result is:");
                     System.out.println(p1.derivative());
+                    break;
                 }
-                case 5 -> System.out.println("Goodbye!");
-                default -> System.out.println("Invalid choice, please try again.");
+                case 5 : {
+                    System.out.println("Goodbye!");
+                    break;
+                }
+                default : System.out.println("Invalid choice, please try again.");
             }
         }
 

@@ -26,7 +26,7 @@ public class ScalarRational implements Scalar {
         int newNumerator = (this.numerator *  s.getDenominator())
                 + (this.denominator *s.getNumerator());
         int newDenominator = this.denominator * s.getDenominator();
-        return new ScalarRational(newNumerator,newDenominator).reduce();
+        return (new ScalarRational(newNumerator,newDenominator).reduce());
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ScalarRational implements Scalar {
 
     @Override
     public Scalar neg() {
-        return new ScalarRational(-numerator,denominator);
+        return new ScalarRational(-numerator,denominator).reduce();
     }
 
     @Override
@@ -79,22 +79,32 @@ public class ScalarRational implements Scalar {
     public ScalarRational reduce(){
         int newNumerator = this.numerator;
         int newDenominator = this.denominator;
-        for (int i = 2; i <= newNumerator && i <= newDenominator; i++) {
+        for (int i = 2; i <= Math.abs(newNumerator) && i <= Math.abs(newDenominator); i++) {
                 while ((newNumerator % i == 0) && (newDenominator % i == 0)) {
                     newNumerator = newNumerator / i;
                     newDenominator = newDenominator / i;
                 }
          }
+        if ((newDenominator<0 && newNumerator>0) || (newDenominator<0 && newNumerator<0)){
+            newDenominator *= -1;
+            newNumerator *= -1;
+        }
+
         return new ScalarRational(newNumerator,newDenominator);
     }
 
     @Override
     public String toString() {
+        reduce();
         int outcome = this.numerator % this.denominator;
         if (outcome == 0 )
             return (this.numerator/this.denominator) + "";
-        else
-            return this.numerator + "/" + this.denominator;
+        else {
+            if ((this.denominator < 0 && this.numerator > 0) || (this.denominator < 0 && this.numerator < 0))
+                return this.numerator * -1 + "/" + this.denominator * -1;
+            else
+                return this.numerator + "/" + this.denominator;
+        }
     }
 
 
